@@ -28,7 +28,7 @@ $movies=[
         ]
         ],
     [
-        'name'=>'Avatar 2',
+        'name'=>'Avatar - The Way of Water',
         'poster'=>'https://upload.wikimedia.org/wikipedia/en/5/54/Avatar_The_Way_of_Water_poster.jpg',
         'info'=>[
             'Action/Sci-fi',
