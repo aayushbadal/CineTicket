@@ -26,6 +26,19 @@ $movies=[
             '11:00am',
             '2:00pm'
         ]
+        ],
+    [
+        'name'=>'Avatar 2',
+        'poster'=>'https://upload.wikimedia.org/wikipedia/en/5/54/Avatar_The_Way_of_Water_poster.jpg',
+        'info'=>[
+            'Action/Sci-fi',
+            '192min'
+        ],
+        'time'=>[
+            '8:00anm',
+            '11:00am',
+            '2:00pm'
+        ]
     ]
 ];
 
