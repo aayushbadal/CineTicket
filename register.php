@@ -23,10 +23,37 @@
             $errormessage="Password must be at least 6 character long";
         }
         else if($password != $confirm_password){
-            $errormessage="passwords donot match";
+            $errormessage="Passwords donot match";
         }   
         else{
             //perform registration work
+            $check_sql = "SELECT ID FROM users Where username = ? OR email = ?";
+            $check_stmt = mysqli_prepare($conn, $check_sql);
+            
+            if($check_stmt) {
+                mysqli_stmt_bind_param($check_stmt, "ss", $username, $email);
+                mysqli_stmt_execute($check_stmt);
+                mysqli_stmt_store_result($check_stmt);
+
+                if(mysqli_stmt_num_rows($check_stmt) > 0){
+                    $errormessage = "Username or email already exists";
+                } else{
+                    //Now insert users into database
+                    $password = password_hash($password, PASSWORD_DEFAULT);
+                    $insert_sql = "INSERT INTO users(username, email, full_name, password) VALUES(?, ?, ?, ?);";
+                    $insert_stmt = mysqli_prepare($conn, $insert_sql);
+
+                    if($insert_stmt) {
+                        mysqli_stmt_bind_param($insert_stmt, "ssss", $username, $email, $full_name, $password);
+                        if (mysqli_stmt_execute($insert_stmt)){
+                            // Redirect to login page
+                            header('Location: /login.php');
+                        } else{
+                            $errormessage = "Registration fail";
+                        }
+                    }
+                }
+            }
         }
     }
 ?>
