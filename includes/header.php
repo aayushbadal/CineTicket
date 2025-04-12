@@ -1,7 +1,7 @@
 <?php
-    require_once"./config/db_connect.php";
+require_once"./config/db_connect.php";
+ob_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

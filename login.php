@@ -1,5 +1,5 @@
 <?php
-    require_once"includes/header.php";
+    require_once"./includes/header.php";
 ?>
 
 <section class="form-section">
@@ -9,7 +9,7 @@
             <form action="" id="login-form">
                 <div class="form-group">
                     <label for="">Username</label>
-                    <input type="text" name="" id="" required />
+                    <input type="text" name="username" id="" required />
                 </div>
 
                 <div class="form-group">

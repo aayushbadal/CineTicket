@@ -48,6 +48,7 @@
                         if (mysqli_stmt_execute($insert_stmt)){
                             // Redirect to login page
                             header('Location: /login.php');
+                            exit();
                         } else{
                             $errormessage = "Registration fail";
                         }
