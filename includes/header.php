@@ -1,5 +1,18 @@
 <?php
 require_once"./config/db_connect.php";
+if(session_status() == PHP_SESSION_NONE){
+    session_name('cineticket');
+    session_start();
+}
+
+function isLoggedIn(){
+    return isset($_SESSION['user_id']);
+}
+
+function getUsername(){
+    return isset($_SESSION['username']) ? $_SESSION['username'] : null;
+}
+
 ob_start();
 ?>
 <!DOCTYPE html>
@@ -35,8 +48,12 @@ ob_start();
                 </div>
 
                 <div class="auth-links">
+                    <?php if(isLoggedIn()) : ?>
+                        <a href="/logout.php" class="login"> Hi <?= getUsername() ?> ! Wanna logout ? </a>
+                    <?php else: ?>
                     <a class="login" href="/login.php">Login</a>
                     <a class="register" href="/register.php">Register</a>
+                    <?php endif; ?>
                 </div>
 
             </nav>

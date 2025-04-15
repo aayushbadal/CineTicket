@@ -1,6 +1,10 @@
 <?php
     require_once"includes/header.php";
 
+    if(isLoggedIn()){
+        header('Location: /index.php');
+        exit();
+    }
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         // Get form data
         $username = trim($_POST['username']);
@@ -61,12 +65,12 @@
 
 <section class="form-section">
     <div class="container">
-        <?php if(!empty($errormessage)):?>
-            <div class="error-message">
-                <?=$errormessage ?>
-            </div>
-            <?php endif; ?>
         <div class="form-container">
+            <?php if(!empty($errormessage)):?>
+                <div class="error-message">
+                    <?=$errormessage ?>
+                </div>
+            <?php endif; ?>
             <h2 class="form-title">Create an Account</h2>
             <form action="/register.php" method="POST" id="register-form">
                 <div class="form-group">
