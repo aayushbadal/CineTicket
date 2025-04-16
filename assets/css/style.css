@@ -447,6 +447,7 @@ footer{
     justify-content: center;
 }
 
-.seat.reserved{
+.seat.selected{
     background-color: #f6f200;
+    color: var(--dark);
 }

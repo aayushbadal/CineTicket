@@ -1,23 +1,35 @@
 <?php
     require_once"./includes/header.php";
+
+
+    $movie_id = isset($_GET['movieId']) ? $_GET['movieId'] : 1;
+    $query = "SELECT * FROM movies where id = $movie_id";
+    $result = mysqli_query($conn, $query);
+
+    $movie = mysqli_fetch_assoc($result);
+
+    //fetch show time
+    $show_query = "select * from show_times where movie_id = $movie_id";
+    $show_result = mysqli_query($conn, $show_query);
+    $show_times = mysqli_fetch_all($result);
 ?>
  <section id="booking-section">
     <div class="container">
         <div class="booking-container">
             <div class="booking-poster">
-                <img src="https://d346azgjfhsciq.cloudfront.net/S3/uploads/gallery/1742298334059-basanta.jpg" alt="">
+                <img src="https://m.media-amazon.com/images/M/MV5BMTljN2VmZTctY2E0Yy00YTdkLWE4MWUtZjJhMmM0ZmExYTg4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
             </div>
             <div class="booking-details">
-                <h2 class="booking-title">Movie Title</h2>
+                <h2 class="booking-title"> <?= $movie['title'] ?></h2>
                 <div class="booking-info">
                     <p>
-                        <strong>Genre: </strong> Drama
+                        <strong>Genre: </strong> <?= $movie['genre'] ?>
                     </p>
                     <p>
-                        <strong>Duration: </strong> 2h30m
+                        <strong>Duration: </strong> <?= $movie['duration'] ?>
                     </p>
                     <p>
-                        <strong>Rs. 400</strong> per ticket
+                        <strong>Rs. <?= $movie['price'] ?></strong> per ticket
                     </p>
                 </div>
                 
