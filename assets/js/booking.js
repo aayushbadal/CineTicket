@@ -1,4 +1,6 @@
 const seatsContainer = document.getElementById('seats-container');
+const selectedSeatsInput = document.getElementById('selected-seats');
+const totalPriceInput = document.getElementById('total-price');
 
 const selectedSeats=[];
 
@@ -17,14 +19,24 @@ for(let row=0; row<8;row++){
 
         seatsContainer.appendChild(seat);
     }
+}
 
-    function toggleSeatSelection(seatElement, seatID){
+function toggleSeatSelection(seatElement, seatID){
         if(seatElement.classList.contains('selected')){
             seatElement.classList.remove('selected');
             selectedSeats = selectedSeats.filter(id => id != seatID);
         } else{
             seatElement.classList.add('selected');
-            selectedSeats.push('seatID');
+            selectedSeats.push(seatID);
         }
+
+        updateBookingSummary();
+}
+
+function updateBookingSummary(){
+    if(selectedSeats.length > 0){
+        selectedSeatsInput.value = selectedSeats.join(",");
+    }else{
+        selectedSeatsInput.value= movieTicketPrice * selectedSeats.length;
     }
 }

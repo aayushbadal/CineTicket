@@ -11,13 +11,13 @@
     //fetch show time
     $show_query = "select * from show_times where movie_id = $movie_id";
     $show_result = mysqli_query($conn, $show_query);
-    $show_times = mysqli_fetch_all($result);
+    $show_times = mysqli_fetch_all($show_result, MYSQLI_ASSOC);
 ?>
  <section id="booking-section">
     <div class="container">
         <div class="booking-container">
             <div class="booking-poster">
-                <img src="https://m.media-amazon.com/images/M/MV5BMTljN2VmZTctY2E0Yy00YTdkLWE4MWUtZjJhMmM0ZmExYTg4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+                <img src="<?= $movie['poster_url'] ?>" alt="">
             </div>
             <div class="booking-details">
                 <h2 class="booking-title"> <?= $movie['title'] ?></h2>
@@ -33,12 +33,16 @@
                     </p>
                 </div>
                 
-                <form action="" id="booking-form">
+                <form action="/process_booking.php" method="POST" id="booking-form">
+                    <input type="hidden" name="movie_id" value="<?= $movie_id ?>" >
+                    <input type="hidden" name="selected_seats" id="selected-seats"value="">
+                    <input type="hidden" name="total_price" id="total-price" value="0">
                     <div class="form-group">
                         <label for="">Select Date</label>
-                        <select name="" id="">
-                            <option value="">9:00 AM</option>
-                            <option value="">11:00 AM</option>
+                        <select name="show_id" id="">
+                            <?php foreach($show_times as $showtime): ?>
+                            <option value="<?= $showtime['id'] ?>"><?= date('F d, Y - h:i:A',strtotime($showtime['datetime'])) ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -48,12 +52,17 @@
                         <div id="seats-container" class="seats-container">
                         </div>
                     </div>
+
+                    <button type="submit" class="btn">Confirm Button</button>
                 </form>
             </div>
         </div>
     </div>
  </section>
 
+<script>
+    const movieTicketPrice = <?= $movie['price']; ?>;
+</script>
  <script src="./assets/js/booking.js"></script>
 
 <?php
